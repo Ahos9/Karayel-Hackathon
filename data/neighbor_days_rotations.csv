@@ -1,0 +1,69 @@
+﻿MAHALLE ADI;Garbage Truck Type;Days Collected Per Week;Collection Frequency (Truck Type);Is Crane Used;Crane rotation days
+19 MAYIS MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+23 NİSAN MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+29 EKİM MAHALLESİ;Large Garbage Truck;0;0;TRUE;6
+30 AĞUSTOS MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;TRUE;6
+AHMET YESEVİ MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+AKÇALAR MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;TRUE;6
+ALAADİNBEY MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ALTINŞEHİR MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+ATAEVLER MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+ATLAS MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+AYVAKÖY MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+BADIRGA MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+BALAT MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+BALKAN MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+BARIŞ MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;TRUE;6
+BAŞKÖY MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+BEŞEVLER MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;6
+BÜYÜKBALIKLI MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+CUMHURİYET MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÇALI MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;TRUE;0
+ÇAMLICA MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+ÇATALAĞIL MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÇAYLI MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+DAĞYENİCE MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+DEMİRCİ MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;TRUE;0
+DOĞANKÖY MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+DUMLUPINAR MAHALLESİ;Large Garbage Truck;7;Monday , Thursday, Wednesday, Thursday, Friday, Saturday, Sunday;FALSE;0
+ERTUĞRUL MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ESENTEPE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ESENTEPE MAHALLESİ;Small Garbage Truck;6;Monday , Thursday, Wednesday, Thursday, Friday, Saturday;FALSE;0
+FADILLI MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+FETHİYE MAHALLESİ;Large Garbage Truck;6;Monday , Thursday, Wednesday, Thursday, Friday, Saturday;FALSE;0
+GÖKÇE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+GÖLYAZI MAHALLESİ;Small Garbage Truck;;Night;FALSE;0
+GÖRÜKLE MAHALLESİ;Large Garbage Truck;7;Monday , Thursday, Wednesday, Thursday, Friday, Saturday, Sunday;FALSE;0
+GÜMÜŞTEPE MAHALLESİ;Small Garbage Truck;6;Monday , Thursday, Wednesday, Thursday, Friday, Saturday;FALSE;0
+GÜNGÖREN MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+HASANAĞA MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+HASANAĞA MAHALLESİ;Small Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+IŞIKTEPE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+İHSANİYE MAHALLESİ;Large Garbage Truck;6;Monday , Thursday, Wednesday, Thursday, Friday, Saturday;TRUE;6
+İNEGAZİ MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+İRFANİYE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KADRİYE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KARACAOBA MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KARAMAN MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KAYAPA MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KIZILCIKLI MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+KONAK MAHALLESİ;Large Garbage Truck;6;Monday , Thursday, Wednesday, Thursday, Friday, Saturday;FALSE;0
+KONAKLI MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+KORUBAŞI MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+KURTULUŞ MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+KURUÇEŞME MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+KÜLTÜR MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+KÜLTÜR MAHALLESİ;Small Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+MAKSEMPINAR MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+MİNARELİÇAVUŞ MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+ODUNLUK MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÖZLÜCE MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+TAHTALI MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+UNÇUKURU MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+ÜÇEVLER MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÜÇEVLER MAHALLESİ;Small Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÜÇPINAR MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+ÜRÜNLÜ MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+YAYLACIK MAHALLESİ;Large Garbage Truck;3;Monday, Wednesday, Friday;FALSE;0
+YOLÇATI MAHALLESİ;Large Garbage Truck;3;Tuesday, Thursday, Saturday;FALSE;0
+YÜZÜNCÜYIL MAHALLESİ;Large Garbage Truck;0;0;TRUE;6

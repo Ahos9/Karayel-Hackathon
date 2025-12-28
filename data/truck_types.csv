@@ -1,0 +1,4 @@
+vehicle_type,capacity_m3,capacity_ton_min,capacity_ton_max
+Crane Vehicle,23,10,13
+Large Garbage Truck,16.5,7,9
+Small Garbage Truck,9,4,5

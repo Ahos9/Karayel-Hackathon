@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetici Paneli - Akıllı Atık Yönetim Sistemi</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        /* Additional styles for admin dashboard */
+        .admin-header {
+            background-color: var(--dark-gray);
+            color: var(--background-white);
+            padding: var(--spacing-md) 0;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            background-color: var(--background-white);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .admin-tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            background-color: var(--nilufer-blue);
+            color: var(--background-white);
+        }
+        
+        .simulation-panel {
+            background-color: var(--background-white);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group label {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark-gray);
+        }
+        
+        .input-group input,
+        .input-group select {
+            padding: 0.75rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: var(--font-primary);
+        }
+        
+        .fleet-table {
+            width: 100%;
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .fleet-table th {
+            text-align: left;
+            padding: var(--spacing-sm);
+            background-color: var(--nilufer-blue);
+            color: var(--background-white);
+        }
+        
+        .fleet-table td {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .fleet-change-input {
+            width: 80px;
+            padding: 0.5rem;
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+        }
+        
+        .run-simulation-btn {
+            background-color: var(--nilufer-green);
+            color: var(--background-white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: var(--spacing-lg);
+            transition: all 0.3s;
+        }
+        
+        .run-simulation-btn:hover {
+            background-color: #008F45;
+            transform: translateY(-2px);
+        }
+        
+        .results-panel {
+            display: none;
+            margin-top: var(--spacing-xl);
+        }
+        
+        .results-panel.visible {
+            display: block;
+        }
+        
+        .recommendation-box {
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+            border-left: 5px solid;
+        }
+        
+        .recommendation-box.recommended {
+            background-color: #D4EDDA;
+            border-color: var(--success-green);
+        }
+        
+        .recommendation-box.neutral {
+            background-color: #FFF3CD;
+            border-color: var(--warning-yellow);
+        }
+        
+        .recommendation-box.not-recommended {
+            background-color: #F8D7DA;
+            border-color: var(--error-red);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .metric-card {
+            background-color: var(--background-white);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border: 2px solid var(--light-gray);
+            text-align: center;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--nilufer-blue);
+        }
+        
+        .metric-change {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .metric-change.positive {
+            color: var(--success-green);
+        }
+        
+        .metric-change.negative {
+            color: var(--error-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="assets/nilufer-logo.png" alt="Nilüfer Belediyesi Logo" class="logo-image">
+                <span class="logo-text">Nilüfer Belediyesi - Yönetici Paneli</span>
+            </div>
+            <div class="header-action">
+                <a href="index.html" class="e-belediye-button">Vatandaş Paneli</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-header">
+        <div class="container">
+            <h1>Operasyon Yöneticisi Kontrol Paneli</h1>
+            <p>Filo simülasyonu ve sistem performans analizi</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- TABS -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showTab('simulation')">Simülasyon</button>
+            <button class="admin-tab" onclick="showTab('fleet')">Filo Yönetimi</button>
+        </div>
+
+        <!-- SIMULATION TAB -->
+        <div id="simulation-tab" class="tab-content">
+            <div class="simulation-panel">
+                <h2>Filo Simülasyonu - "What-If" Analizi</h2>
+                <p>Filo konfigürasyonunu değiştirerek operasyonel etkileri önceden görün</p>
+
+                <!-- Baseline Period Selection -->
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Başlangıç Tarihi</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="input-group">
+                        <label>Bitiş Tarihi</label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <div class="input-group">
+                        <label>Simülasyon Adı</label>
+                        <input type="text" id="simName" placeholder="Örn: 2 Büyük Kamyon Ekle">
+                    </div>
+                </div>
+
+                <!-- Fleet Modification Table -->
+                <h3>Filo Kompozisyonu Değişiklikleri</h3>
+                <table class="fleet-table">
+                    <thead>
+                        <tr>
+                            <th>Araç Tipi</th>
+                            <th>Mevcut Sayı</th>
+                            <th>Değişiklik</th>
+                            <th>Yeni Toplam</th>
+                            <th>Kapasite (L)</th>
+                            <th>Yakıt Tüketimi (L/km)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Küçük Kamyonlar</td>
+                            <td>5</td>
+                            <td><input type="number" class="fleet-change-input" id="smallTruckChange" value="0" min="-5" max="10"></td>
+                            <td id="smallTruckTotal">5</td>
+                            <td>5,000</td>
+                            <td>0.25</td>
+                        </tr>
+                        <tr>
+                            <td>Büyük Kamyonlar</td>
+                            <td>10</td>
+                            <td><input type="number" class="fleet-change-input" id="largeTruckChange" value="0" min="-10" max="10"></td>
+                            <td id="largeTruckTotal">10</td>
+                            <td>12,000</td>
+                            <td>0.40</td>
+                        </tr>
+                        <tr>
+                            <td>Kompaktörler</td>
+                            <td>3</td>
+                            <td><input type="number" class="fleet-change-input" id="compactorChange" value="0" min="-3" max="10"></td>
+                            <td id="compactorTotal">3</td>
+                            <td>18,000</td>
+                            <td>0.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Advanced Parameters -->
+                <h3>Gelişmiş Parametreler</h3>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Yakıt Fiyatı (₺/L)</label>
+                        <input type="number" id="fuelPrice" value="40.74" step="0.5">
+                        <small style="color: #666; font-size: 0.85rem;">Default değer: 40.74 ₺/L</small>
+                    </div>
+                    <div></div>
+                    <div class="input-group">
+                        <label>Maks. Rota Süresi (saat)</label>
+                        <input type="number" id="maxRouteDuration" value="8" min="4" max="12">
+                        <small style="color: #666; font-size: 0.85rem;">Default değer: 8 saat</small>
+                    </div>
+                </div>
+
+                <button class="run-simulation-btn" onclick="runSimulation()">
+                    Simülasyonu Çalıştır
+                </button>
+
+                <!-- RESULTS PANEL -->
+                <div class="results-panel" id="resultsPanel">
+                    <h2>Simülasyon Sonuçları</h2>
+                    
+                    <!-- Recommendation Box -->
+                    <div class="recommendation-box neutral" id="recommendationBox">
+                        <h3 id="recommendationTitle">📊 TAVSİYE: NÖTR</h3>
+                        <p id="recommendationText">Marjinal faydalar mevcut. İsteğe bağlı uygulama.</p>
+                        <p><strong>Önemli Bulgular:</strong></p>
+                        <ul id="recommendationReasons">
+                            <li>Aylık 25,000 ₺ maliyet artışı (amortisman sonrası)</li>
+                            <li>234 kg CO₂ emisyon azalması</li>
+                            <li>Yüksek hizmet kalitesi korunuyor (%99.8)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Metrics Comparison -->
+                    <h3>Karşılaştırmalı Metrikler</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Toplam Kilometre</div>
+                            <div class="metric-value" id="kmValue">4,950 km</div>
+                            <div class="metric-change positive" id="kmChange">-450 km (-8.3%)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Yakıt Tüketimi</div>
+                            <div class="metric-value" id="fuelValue">1,260 L</div>
+                            <div class="metric-change positive" id="fuelChange">-90 L (-6.7%)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">CO₂ Emisyonu</div>
+                            <div class="metric-value" id="co2Value">3,276 kg</div>
+                            <div class="metric-change positive" id="co2Change">-234 kg (-6.7%)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Maliyet</div>
+                            <div class="metric-value" id="costValue">310,000 ₺</div>
+                            <div class="metric-change negative" id="costChange">+25,000 ₺ (+8.8%)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Toplama Oranı</div>
+                            <div class="metric-value" id="collectionRateValue">99.8%</div>
+                            <div class="metric-change negative" id="collectionRateChange">-0.2%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Vatandaş Memnuniyeti</div>
+                            <div class="metric-value" id="satisfactionValue">92</div>
+                            <div class="metric-change negative" id="satisfactionChange">-3 puan</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Comparison Table -->
+                    <h3 style="margin-top: 2rem;">Detaylı Karşılaştırma</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Metrik</th>
+                                <th>Mevcut Sistem</th>
+                                <th>Simülasyon Sonucu</th>
+                                <th>Değişim</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparisonTableBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <button class="e-belediye-button" onclick="exportReport()">Raporu PDF Olarak İndir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLEET MANAGEMENT TAB -->
+        <div id="fleet-tab" class="tab-content" style="display: none;">
+            <div class="simulation-panel">
+                <h2>🚚 Filo Yönetimi ve Rota Optimizasyonu</h2>
+                <p>AI destekli otomatik rota planlama sistemi</p>
+                
+                <div style="margin: 2rem 0; text-align: center;">
+                    <button class="run-simulation-btn" onclick="optimizeRoutes()">Rotaları Optimize Et</button>
+                </div>
+                
+                <!-- Summary Cards -->
+                <div id="routeSummary" style="display: none; margin: 2rem 0;">
+                    <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="metric-card">
+                            <div class="metric-label">Toplam Araç</div>
+                            <div class="metric-value" id="summaryVehicles">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Toplanacak Konteyner</div>
+                            <div class="metric-value" id="summaryContainers">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Toplam Mesafe</div>
+                            <div class="metric-value" id="summaryDistance">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Tahmini Süre</div>
+                            <div class="metric-value" id="summaryTime">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map and Vehicle List -->
+                <div id="fleetMapContainer" style="display: none; margin: 2rem 0;">
+                    <h3 style="color: var(--nilufer-blue); margin-bottom: 1rem;">📍 Rota Haritası ve Araç Listesi</h3>
+                    <div style="display: grid; grid-template-columns: 300px 1fr; gap: 1rem;">
+                        <!-- Vehicle List -->
+                        <div style="background: white; border-radius: 8px; padding: 1rem; max-height: 600px; overflow-y: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--nilufer-blue); margin-top: 0; margin-bottom: 1rem;">Araç Listesi</h4>
+                            <div id="vehicleList"></div>
+                        </div>
+                        
+                        <!-- Map -->
+                        <div id="fleetMap" style="height: 600px; border-radius: 8px; overflow: hidden;"></div>
+                    </div>
+                </div>
+                
+                <!-- Route Details -->
+                <div id="routeDetails" style="display: none; margin-top: 2rem;">
+                    <h3 style="color: var(--nilufer-blue); margin-bottom: 1rem;">📋 Seçili Araç Detayları</h3>
+                    <div id="routeDetailContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nilüfer Belediyesi - Yönetici Paneli</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="admin-script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // PDF Export Fonksiyonu
+        function exportReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Tarih bilgisi
+            const today = new Date().toLocaleDateString('tr-TR');
+            const startDate = document.getElementById('startDate')?.value || '2024-11-01';
+            const endDate = document.getElementById('endDate')?.value || '2024-11-30';
+            const simName = document.getElementById('simName')?.value || 'Simülasyon';
+            
+            // Başlık
+            doc.setFontSize(18);
+            doc.setTextColor(0, 102, 179); // Nilüfer mavi
+            doc.text('NILUFER BELEDIYESI', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Filo Simulasyon Raporu', 105, 30, { align: 'center' });
+            
+            doc.setFontSize(10);
+            doc.text(`Rapor Tarihi: ${today}`, 105, 38, { align: 'center' });
+            doc.text(`Simulasyon Adi: ${simName}`, 105, 44, { align: 'center' });
+            doc.text(`Donem: ${startDate} - ${endDate}`, 105, 50, { align: 'center' });
+            
+            // Çizgi
+            doc.setDrawColor(0, 102, 179);
+            doc.line(20, 55, 190, 55);
+            
+            // Tavsiye Bölümü
+            let yPos = 65;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            
+            const recTitle = document.getElementById('recommendationTitle')?.textContent || 'TAVSIYE';
+            doc.text(recTitle, 20, yPos);
+            
+            yPos += 8;
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(10);
+            
+            const recText = document.getElementById('recommendationText')?.textContent || '';
+            const splitText = doc.splitTextToSize(recText, 170);
+            doc.text(splitText, 20, yPos);
+            yPos += splitText.length * 6 + 5;
+            
+            // Önemli Bulgular
+            doc.setFont(undefined, 'bold');
+            doc.text('Onemli Bulgular:', 20, yPos);
+            yPos += 6;
+            doc.setFont(undefined, 'normal');
+            
+            const reasons = document.querySelectorAll('#recommendationReasons li');
+            reasons.forEach(reason => {
+                const text = doc.splitTextToSize(`- ${reason.textContent}`, 165);
+                doc.text(text, 25, yPos);
+                yPos += text.length * 5 + 2;
+            });
+            
+            yPos += 10;
+            
+            // Metrikler Tablosu
+            doc.setFont(undefined, 'bold');
+            doc.setFontSize(12);
+            doc.text('Karsilastirmali Metrikler', 20, yPos);
+            yPos += 8;
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            // Metrikleri çek
+            const metrics = [
+                ['Toplam Kilometre', document.getElementById('kmValue')?.textContent || '', document.getElementById('kmChange')?.textContent || ''],
+                ['Yakit Tuketimi', document.getElementById('fuelValue')?.textContent || '', document.getElementById('fuelChange')?.textContent || ''],
+                ['CO2 Emisyonu', document.getElementById('co2Value')?.textContent || '', document.getElementById('co2Change')?.textContent || ''],
+                ['Aylik Maliyet', document.getElementById('costValue')?.textContent || '', document.getElementById('costChange')?.textContent || ''],
+                ['Toplama Orani', document.getElementById('collectionRateValue')?.textContent || '', document.getElementById('collectionRateChange')?.textContent || ''],
+                ['Vatandas Memnuniyeti', document.getElementById('satisfactionValue')?.textContent || '', document.getElementById('satisfactionChange')?.textContent || '']
+            ];
+            
+            // Tablo başlıkları
+            doc.setFillColor(0, 102, 179);
+            doc.rect(20, yPos, 170, 8, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.text('Metrik', 25, yPos + 5);
+            doc.text('Deger', 90, yPos + 5);
+            doc.text('Degisim', 140, yPos + 5);
+            yPos += 8;
+            
+            doc.setTextColor(0, 0, 0);
+            
+            // Tablo satırları
+            metrics.forEach((metric, index) => {
+                if (yPos > 270) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                
+                // Zebra striping
+                if (index % 2 === 0) {
+                    doc.setFillColor(245, 245, 245);
+                    doc.rect(20, yPos, 170, 7, 'F');
+                }
+                
+                doc.text(metric[0], 25, yPos + 5);
+                doc.text(metric[1], 90, yPos + 5);
+                doc.text(metric[2], 140, yPos + 5);
+                yPos += 7;
+            });
+            
+            // Yeni sayfa - Detaylı Karşılaştırma
+            doc.addPage();
+            yPos = 20;
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('Detayli Karsilastirma', 20, yPos);
+            yPos += 10;
+            
+            // Detaylı tablo başlıkları
+            doc.setFillColor(0, 102, 179);
+            doc.rect(20, yPos, 170, 8, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(9);
+            doc.text('Metrik', 25, yPos + 5);
+            doc.text('Mevcut', 85, yPos + 5);
+            doc.text('Simulasyon', 120, yPos + 5);
+            doc.text('Degisim', 160, yPos + 5);
+            yPos += 8;
+            
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'normal');
+            
+            // Tablo verilerini çek
+            const tableRows = document.querySelectorAll('.comparison-table tbody tr');
+            tableRows.forEach((row, index) => {
+                if (yPos > 270) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                
+                if (index % 2 === 0) {
+                    doc.setFillColor(245, 245, 245);
+                    doc.rect(20, yPos, 170, 7, 'F');
+                }
+                
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    doc.text(cells[0].textContent.substring(0, 25), 25, yPos + 5);
+                    doc.text(cells[1].textContent, 85, yPos + 5);
+                    doc.text(cells[2].textContent, 120, yPos + 5);
+                    doc.text(cells[3].textContent, 160, yPos + 5);
+                }
+                yPos += 7;
+            });
+            
+            // Footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(128, 128, 128);
+                doc.text(`Sayfa ${i} / ${pageCount}`, 105, 290, { align: 'center' });
+                doc.text('Nilufer Belediyesi - Akilli Atik Yonetim Sistemi', 105, 285, { align: 'center' });
+            }
+            
+            // PDF'i indir
+            const fileName = `Simulasyon_Raporu_${simName.replace(/\s+/g, '_')}_${today.replace(/\./g, '-')}.pdf`;
+            doc.save(fileName);
+            
+            alert('✅ PDF raporu başarıyla indirildi!');
+        }
+    </script>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>

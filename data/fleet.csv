@@ -1,0 +1,46 @@
+vehicle_name,vehicle_id,vehicle_type,capacity_m3,capacity_ton
+Vehicle 1,2824,Large Garbage Truck,16.5,7.8
+Vehicle 2,1409,Large Garbage Truck,16.5,8.4
+Vehicle 3,5506,Large Garbage Truck,16.5,7.4
+Vehicle 4,5012,Large Garbage Truck,16.5,8.2
+Vehicle 5,4657,Crane Vehicle,23.0,11.8
+Vehicle 6,3286,Large Garbage Truck,16.5,8.0
+Vehicle 7,2679,Large Garbage Truck,16.5,7.4
+Vehicle 8,9935,Large Garbage Truck,16.5,7.6
+Vehicle 9,2424,Large Garbage Truck,16.5,8.6
+Vehicle 10,7912,Small Garbage Truck,9.0,4.8
+Vehicle 11,1520,Crane Vehicle,23.0,11.4
+Vehicle 12,1488,Large Garbage Truck,16.5,8.0
+Vehicle 13,2535,Crane Vehicle,23.0,12.2
+Vehicle 14,4582,Crane Vehicle,23.0,11.0
+Vehicle 15,4811,Crane Vehicle,23.0,11.8
+Vehicle 16,9279,Crane Vehicle,23.0,10.8
+Vehicle 17,1434,Large Garbage Truck,16.5,8.6
+Vehicle 18,4257,Crane Vehicle,23.0,11.2
+Vehicle 19,9928,Crane Vehicle,23.0,12.4
+Vehicle 20,7873,Large Garbage Truck,16.5,7.4
+Vehicle 21,4611,Large Garbage Truck,16.5,8.0
+Vehicle 22,8359,Large Garbage Truck,16.5,8.0
+Vehicle 23,5557,Crane Vehicle,23.0,11.2
+Vehicle 24,1106,Large Garbage Truck,16.5,7.8
+Vehicle 25,3615,Crane Vehicle,23.0,12.4
+Vehicle 26,7924,Crane Vehicle,23.0,12.2
+Vehicle 27,6574,Small Garbage Truck,9.0,4.4
+Vehicle 28,5552,Crane Vehicle,23.0,11.0
+Vehicle 29,3547,Crane Vehicle,23.0,11.6
+Vehicle 30,4527,Crane Vehicle,23.0,11.8
+Vehicle 31,6514,Small Garbage Truck,9.0,4.6
+Vehicle 32,2674,Crane Vehicle,23.0,11.4
+Vehicle 33,2519,Large Garbage Truck,16.5,8.2
+Vehicle 34,7224,Crane Vehicle,23.0,11.6
+Vehicle 35,2584,Crane Vehicle,23.0,11.4
+Vehicle 36,6881,Large Garbage Truck,16.5,8.6
+Vehicle 37,6635,Large Garbage Truck,16.5,8.6
+Vehicle 38,5333,Small Garbage Truck,9.0,4.4
+Vehicle 39,1711,Large Garbage Truck,16.5,7.8
+Vehicle 40,8527,Crane Vehicle,23.0,10.8
+Vehicle 41,9785,Large Garbage Truck,16.5,7.2
+Vehicle 42,3045,Large Garbage Truck,16.5,8.0
+Vehicle 43,7201,Crane Vehicle,23.0,11.6
+Vehicle 44,2291,Crane Vehicle,23.0,11.6
+Vehicle 45,5803,Large Garbage Truck,16.5,7.8

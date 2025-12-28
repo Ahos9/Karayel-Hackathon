@@ -1,0 +1,23 @@
+# Large data files
+data/all_merged_data.csv
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Database (optional - comment out if you want to include it)
+# nilufer_waste.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
